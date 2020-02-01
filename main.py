@@ -1,6 +1,9 @@
 from keras import backend as K
-from process import preprocess_image
-
+from process import preprocess_image, deprocess_image
+from scipy.optimize import fmin_l_bfgs_b
+from scipy.misc import imsave
+import time
+from evaluator import Evaluator
 
 target_image = K.constant(preprocess_image(target_image_path))
 style_reference_image = K.constant(preprocess_image(style_reference_image_path))
@@ -50,3 +53,26 @@ grads = K.gradients(loss, combination_image)[0]
 fetch_loss_and_grads = K.function([combination_image], [loss, grads])
 
 
+result_prefix = 'my_result'
+iterations = 20
+
+x = preprocess_image(target_image_path)
+x = x.flatten()
+
+for i in range(iterations):
+  print('Start of iteration', i)
+
+  start_time = time.time()
+  x, min_val, info = fmin_l_bfgs_b(evaluator.loss,x, fprime=evaluator.grads,maxfun=20)
+
+  print('Current loss value:', min_val)
+
+  img = x.copy().reshape((img_height, img_width, 3))
+  img = deprocess_image(img)
+  fname = result_prefix + '_at_iteration_%d.png' % i
+
+  imsave(fname, img)
+
+  print('Image saved as', fname)
+  end_time = time.time()
+  print('Iteration %d completed in %ds' % (i, end_time - start_time))
