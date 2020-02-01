@@ -8,9 +8,9 @@ from tensorflow.keras.preprocessing.image import load_img, img_to_array
 import argparse
 
 ap = argparse.ArgumentParser()
-ap.add_argument("-t", "--target", required=True,
+ap.add_argument("-t", "--target", default= 'jeff.jpg',
         help="path to TARGET IMAGE")
-ap.add_argument("-s", "--style", required=False,
+ap.add_argument("-s", "--style", default= 'abstract.jpg',
         help="path to  STYLE IMAGE")
 
 args = vars(ap.parse_args())
