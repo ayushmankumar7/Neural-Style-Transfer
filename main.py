@@ -1,15 +1,24 @@
-from keras import backend as K
+from tensorflow.keras import backend as K
 from process import preprocess_image, deprocess_image
 from scipy.optimize import fmin_l_bfgs_b
 from scipy.misc import imsave
 import time
 from evaluator import Evaluator
-from keras.preprocessing.image import load_img, img_to_array
+from tensorflow.keras.preprocessing.image import load_img, img_to_array
+import argparse
+
+ap = argparse.ArgumentParser()
+ap.add_argument("-t", "--target", required=True,
+        help="path to TARGET IMAGE")
+ap.add_argument("-s", "--style", required=False,
+        help="path to  STYLE IMAGE")
+
+args = vars(ap.parse_args())
 
 
 
-target_image_path = 'potrait.jpeg'
-style_reference_image_path = 'reference.jpeg'
+target_image_path = args['target']
+style_reference_image_path = args['style']
 
 width, height = load_img(target_image_path).size
 img_height = 400
