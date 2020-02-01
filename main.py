@@ -52,6 +52,7 @@ loss += total_variation_weight * total_variation_loss(combination_image)
 grads = K.gradients(loss, combination_image)[0]
 fetch_loss_and_grads = K.function([combination_image], [loss, grads])
 
+evaluator = Evaluator()
 
 result_prefix = 'my_result'
 iterations = 20
