@@ -1,4 +1,6 @@
 from keras import backend as K
+from process import preprocess_image
+
 
 target_image = K.constant(preprocess_image(target_image_path))
 style_reference_image = K.constant(preprocess_image(style_reference_image_path))
