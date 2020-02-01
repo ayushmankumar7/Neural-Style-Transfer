@@ -4,6 +4,16 @@ from scipy.optimize import fmin_l_bfgs_b
 from scipy.misc import imsave
 import time
 from evaluator import Evaluator
+from keras.preprocessing.image import load_img, img_to_array
+
+
+
+target_image_path = 'potrait.jpeg'
+style_reference_image_path = 'reference.jpeg'
+
+width, height = load_img(target_image_path).size
+img_height = 400
+img_width = int(width * img_height/ height)
 
 target_image = K.constant(preprocess_image(target_image_path))
 style_reference_image = K.constant(preprocess_image(style_reference_image_path))
