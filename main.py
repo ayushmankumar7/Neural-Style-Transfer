@@ -27,6 +27,9 @@ width, height = load_img(target_image_path).size
 img_height = 400
 img_width = int(width * img_height/ height)
 
+def heiwi(img_height = img_height, img_width = img_width):
+        return img_height, img_width
+
 target_image = K.constant(preprocess_image(target_image_path, img_height, img_width))
 style_reference_image = K.constant(preprocess_image(style_reference_image_path,img_height, img_width))
 combination_image = K.placeholder((1, img_height, img_width, 3))
