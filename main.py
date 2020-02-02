@@ -4,6 +4,7 @@ from scipy.optimize import fmin_l_bfgs_b
 import time
 from evaluator import Evaluator
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
+from tensorflow.keras.applications import vgg19
 import argparse
 from tensorflow.keras.preprocessing.image import save_img
 import PIL.Image
@@ -26,7 +27,7 @@ img_height = 400
 img_width = int(width * img_height/ height)
 
 target_image = K.constant(preprocess_image(target_image_path, img_height, img_width))
-style_reference_image = K.constant(preprocess_image(style_reference_image_path))
+style_reference_image = K.constant(preprocess_image(style_reference_image_path,img_height, img_width))
 combination_image = K.placeholder((1, img_height, img_width, 3))
 
 input_tensor = K.concatenate([target_image,
@@ -77,7 +78,7 @@ evaluator = Evaluator()
 result_prefix = 'my_result'
 iterations = 20
 
-x = preprocess_image(target_image_path)
+x = preprocess_image(target_image_path,img_height, img_width)
 x = x.flatten()
 
 for i in range(iterations):
