@@ -1,5 +1,6 @@
 from tensorflow.keras import backend as K
 from process import preprocess_image, deprocess_image
+from losses import content_loss, gram_matrix, style_loss, total_variation_loss
 from scipy.optimize import fmin_l_bfgs_b
 import time
 from evaluator import Evaluator
