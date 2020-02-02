@@ -9,7 +9,7 @@ def gram_matrix(x):
   gram = K.dot(features, K.transpose(features))
   return gram
 
-def style_loss(style, combination):
+def style_loss(style, combination, img_height, img_width):
   S = gram_matrix(style)
   C = gram_matrix(combination)
   channels = 3

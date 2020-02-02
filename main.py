@@ -59,7 +59,7 @@ layer_features = outputs_dict[content_layer]
 target_image_features = layer_features[0, :, :, :]
 
 combination_features = layer_features[2, :, :, :]
-loss += content_weight * content_loss(target_image_features,combination_features)
+loss.assign_add(content_weight * content_loss(target_image_features,combination_features))
 for layer_name in style_layers:
 
   layer_features = outputs_dict[layer_name]
@@ -67,9 +67,9 @@ for layer_name in style_layers:
   style_reference_features = layer_features[1, :, :, :]
 
   combination_features = layer_features[2, :, :, :]
-  sl = style_loss(style_reference_features, combination_features)
-  loss += (style_weight / len(style_layers)) * sl
-loss += total_variation_weight * total_variation_loss(combination_image)
+  sl = style_loss(style_reference_features, combination_features, img_height, img_width)
+  loss.assign_add((style_weight / len(style_layers)) * sl)
+loss.assign_add(total_variation_weight * total_variation_loss(combination_image))
 
 grads = K.gradients(loss, combination_image)[0]
 fetch_loss_and_grads = K.function([combination_image], [loss, grads])
