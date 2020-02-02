@@ -1,11 +1,12 @@
 from tensorflow.keras import backend as K
 from process import preprocess_image, deprocess_image
 from scipy.optimize import fmin_l_bfgs_b
-from scipy.misc import imsave
 import time
 from evaluator import Evaluator
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 import argparse
+from tensorflow.keras.preprocessing.image import save_img
+import PIL.Image
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-t", "--target", default= 'jeff.jpg',
@@ -91,7 +92,7 @@ for i in range(iterations):
   img = deprocess_image(img)
   fname = result_prefix + '_at_iteration_%d.png' % i
 
-  imsave(fname, img)
+  save_img(fname, img)
 
   print('Image saved as', fname)
   end_time = time.time()
