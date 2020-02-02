@@ -1,5 +1,5 @@
 import numpy as np
-from tensorflow.keras import backend as K
+from keras import backend as K
 
 def content_loss(base, combination):
   return K.sum(K.square(combination - base))
