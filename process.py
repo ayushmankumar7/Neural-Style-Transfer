@@ -1,8 +1,9 @@
 import numpy as np 
 from tensorflow.keras.applications import vgg19
+from tensorflow.keras.preprocessing.image import load_img, img_to_array
 
 
-def preprocess_image(image_path):
+def preprocess_image(image_path, img_height, img_width):
   img = load_img(image_path, target_size = (img_height, img_width))
   img = img_to_array(img)
   img = np.expand_dims(img, axis= 0)
