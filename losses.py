@@ -16,7 +16,7 @@ def style_loss(style, combination, img_height, img_width):
   size = img_height * img_width
   return K.sum(K.square(S-C)) / (4. * (channels ** 2) * (size ** 2))
 
-def total_variation_loss(x):
+def total_variation_loss(x, img_height, img_width):
   a = K.square(
       x[:, :img_height - 1, :img_width - 1, :] - 
       x[:, 1: , :img_width - 1 , :])
