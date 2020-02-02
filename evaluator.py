@@ -1,5 +1,7 @@
 import numpy as np 
+from main import heiwi
 
+img_height, img_width = heiwi()
 
 class Evaluator(object):
   def __init__(self):
